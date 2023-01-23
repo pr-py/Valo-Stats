@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="app.css">
+    <title>Valorant Stats</title>
+</head>
+
+<body>
+    <h2>
+        Valorant Stats
+    </h2>
+    <div class="search">
+        <div class="grid-container">
+            <div class="grid-child">
+                <h5>
+                    Pick Player:
+                </h5>
+                <select id="player">
+                    <option value="1">AgentPP</option>
+                    <option value="2">Raz1a</option>
+                    <option value="3">Mandark</option>
+                    <option value="4">SniperLag</option>
+                    <option value="5">Darkknight1</option>
+                    <option value="6">Wolfstien20</option>
+                </select>
+            </div>
+
+            <div class="grid-child">
+                <h5>
+                    Pick Match Type:
+                </h5>
+                <select id="match">
+                    <option>Last Match (Competitive)</option>
+                    <!-- <option>Last Match (Swiftplay)</option>
+                    <option>Last Match (Deathmatch)</option>
+                    <option>Last Match (Spike Rush)</option>
+                    <option>Last Match (Unrated)</option>
+                    <option>Last Match (Escalation)</option> -->
+
+                </select>
+            </div>
+            <div class="grid-child input">
+                <input type="button" value="Get Stats" onclick="userAction()">
+                <br>
+                <div id="loading"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="show" class="show">
+        <div class="grid-container">
+            <div class="grid-child">
+                <h4 id="player_name"></h4>
+                <div id="player_card"></div>
+
+            </div>
+
+            <div class="grid-child">
+
+                <table id="player_info"></table>
+                <br>
+                <table id="match_info"></table>
+
+                <!-- <div id="agent_icon"></div>
+                <h6 id="agent_name"></h6> -->
+            </div>
+
+            <div class="grid-child">
+
+                <table id="stats">
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
