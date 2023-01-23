@@ -96,7 +96,7 @@ const userAction = async () => {
     else
         result = "Draw";
 
-    document.getElementById('match_info').innerHTML = "<tr><th>Match Info:   " + result + "</th><th></th></tr>";
+    document.getElementById('match_info').innerHTML = "<tr><th>Match Info: " + result + "</th><th></th></tr>";
 
     document.getElementById('match_info').innerHTML += "<tr><td>Map</td><td>" + map_name + "</td></tr>";
 

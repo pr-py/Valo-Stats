@@ -1,6 +1,9 @@
 <html>
 
 <head>
+    <link rel="icon" type="image/x-icon" href="assets/vs.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="app.css">
     <title>Valorant Stats</title>
 </head>
@@ -10,8 +13,8 @@
         Valorant Stats
     </h2>
     <div class="search">
-        <div class="grid-container">
-            <div class="grid-child">
+        <div class="w3-row-padding">
+            <div class="w3-third w3-padding-16">
                 <h5>
                     Pick Player:
                 </h5>
@@ -25,7 +28,7 @@
                 </select>
             </div>
 
-            <div class="grid-child">
+            <div class="w3-third w3-padding-16">
                 <h5>
                     Pick Match Type:
                 </h5>
@@ -39,9 +42,8 @@
 
                 </select>
             </div>
-            <div class="grid-child input">
+            <div class="w3-third w3-padding-16">
                 <input type="button" value="Get Stats" onclick="userAction()">
-                <br>
                 <div id="loading"></div>
             </div>
         </div>
@@ -50,14 +52,14 @@
 
 
     <div id="show" class="show">
-        <div class="grid-container">
-            <div class="grid-child">
+        <div class="w3-row-padding">
+            <div class="w3-third w3-padding-16">
                 <h4 id="player_name"></h4>
                 <div id="player_card"></div>
 
             </div>
 
-            <div class="grid-child">
+            <div class="w3-third w3-padding-16">
 
                 <table id="player_info"></table>
                 <br>
@@ -67,7 +69,7 @@
                 <h6 id="agent_name"></h6> -->
             </div>
 
-            <div class="grid-child">
+            <div class="w3-third w3-padding-16">
 
                 <table id="stats">
                 </table>
