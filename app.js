@@ -52,7 +52,7 @@ const userAction = async () => {
         mode = myJson['data'][i]['metadata']['mode'];
 
         for (j = 0; j < 10; j++) {
-            if (myJson['data'][i]['players']['all_players'][j]['name'] == p && mode == mode_list[md]) {
+            if (myJson['data'][i]['players']['all_players'][j]['name'] == p &&  myJson['data'][i]['players']['all_players'][j]['tag'] == flist[p] && mode == mode_list[md]) {
 
                 document.getElementById('player_name').innerText = p;
 
