@@ -31,7 +31,7 @@ const userAction = async () => {
     const response1 = await fetch('https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/' + p + '/' + flist[p]);
     const myJson1 = await response1.json(); //extract JSON from the http response
 
-    //hideLoading();
+    hideLoading();
 
     var i, j, d, flag = 0;
 
@@ -123,7 +123,7 @@ const userAction = async () => {
     document.getElementById('stats').innerHTML += "<tr><td>K/D</td> <td>" + Math.round(kd * 10) / 10 + "</td></tr>";
 
 
-    hideLoading();
+    //hideLoading();
 }
 
 const loader = document.querySelector("#loading");
@@ -134,7 +134,7 @@ function displayLoading() {
     // to stop loading after some time
     setTimeout(() => {
         loader.classList.remove("display");
-    }, 5000);
+    }, 6000);
 }
 
 // hiding loading 
