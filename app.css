@@ -152,3 +152,8 @@ div#player_card {
         transform: rotate(360deg);
     }
 }
+
+@font-face {
+    font-family: "VALORANT";
+    src: url('./assets/Valorant.ttf') format("truetype");
+}
