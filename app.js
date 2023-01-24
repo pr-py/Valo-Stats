@@ -1,37 +1,56 @@
-console.log("started..")
 
 const userAction = async () => {
 
     var flist = {
-        "AgentPP": 6969,
-        "Raz1a": 7233,
-        "Mandark": 1337,
-        "SniperLag": 9424,
-        "Darkknight1": 4637,
-        "Wolfstien20": 2429
+        "AgentPP": "6969",
+        "Raz1a": "7233",
+        "Mandark": "1337",
+        "SniperLag": "9424",
+        "Darkknight1": "4637",
+        "Wolfstien20": "2429"
     }
 
-    var mode_list = ["Competitive", "Swiftplay", "Deathmatch","Spike Rush", "Unrated", "Escalation"];
+    var mode_list = ["Competitive", "Swiftplay", "Deathmatch", "Spike Rush", "Unrated", "Escalation"];
 
     //"https://api.henrikdev.xyz/valorant/v3/matches/ap/AgentPP/6969"
     displayLoading();
+
     var p = document.getElementById('player');
     p = p.options[p.selectedIndex].text;
 
     var md = document.getElementById('match');
     md = md.selectedIndex;
 
+    var pname, ptag;
 
-    const response = await fetch('https://api.henrikdev.xyz/valorant/v3/matches/ap/' + p + '/' + flist[p]);
+    pname = document.getElementById('p_name').value;
+    ptag = document.getElementById('p_tag').value;
+
+    
+
+    if (pname == "" && ptag == "") {
+        pname = p;
+        ptag = flist[p];
+    }
+    else if(pname == "" || ptag == "")
+    {
+        alert("Please enter Player Name or Tag");
+        hideLoading();
+        return;
+    }
+
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v3/matches/ap/' + pname + '/' + ptag);
     const myJson = await response.json(); //extract JSON from the http response
     // do something with myJson
 
     //"https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/AgentPP/6969"
 
-    const response1 = await fetch('https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/' + p + '/' + flist[p]);
+    const response1 = await fetch('https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/' + pname + '/' + ptag);
     const myJson1 = await response1.json(); //extract JSON from the http response
 
-    hideLoading();
+
+
+    //hideLoading();
 
     var i, j, d, flag = 0;
 
@@ -52,9 +71,10 @@ const userAction = async () => {
         mode = myJson['data'][i]['metadata']['mode'];
 
         for (j = 0; j < 10; j++) {
-            if (myJson['data'][i]['players']['all_players'][j]['name'] == p &&  myJson['data'][i]['players']['all_players'][j]['tag'] == flist[p] && mode == mode_list[md]) {
+            //console.log(escapeUnicode(myJson['data'][i]['players']['all_players'][j]['name']));
+            if (myJson['data'][i]['players']['all_players'][j]['name'].normalize('NFC') === pname.normalize('NFC') && myJson['data'][i]['players']['all_players'][j]['tag'].normalize('NFC') === ptag.normalize('NFC') && mode == mode_list[md]) {
 
-                document.getElementById('player_name').innerText = p;
+                document.getElementById('player_name').innerText = pname;
 
                 team_color = myJson['data'][i]['players']['all_players'][j]['team'];
                 agent_played = myJson['data'][i]['players']['all_players'][j]['character'];
@@ -67,9 +87,9 @@ const userAction = async () => {
                 rounds_won = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_won'];
                 rounds_lost = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_lost'];
 
-                
 
-                document.getElementById('player_info').innerHTML = "<tr><td>Rank</td><td>" + "<img style='width:60%; height:60%' src=" + rank_img + "><br>" + rank + "</td></tr>";
+
+                document.getElementById('player_info').innerHTML = "<tr><td>Rank</td><td>" + "<img style='width:40%; height:40%' src=" + rank_img + "><br>" + rank + "</td></tr>";
                 document.getElementById('player_info').innerHTML += "<tr><td>Level</td><td>" + myJson['data'][i]['players']['all_players'][j]['level'] + "</td></tr>";
 
                 document.getElementById('player_card').style.backgroundImage = "url(" + JSON.stringify(myJson['data'][i]['players']['all_players'][j]['assets']['card']['large']) + ")";
@@ -111,7 +131,7 @@ const userAction = async () => {
         document.getElementById('match_info').innerHTML += "<tr><td>RR received</td><td>" + myJson1['data'][0]['mmr_change_to_last_game'] + "</td></tr>";
 
     var kills, deaths;
-    document.getElementById('stats').innerHTML = "<tr><th>Player Stats</th><th></th></tr>";
+    document.getElementById('stats').innerHTML = "<tr><th colspan='2'>Player Stats</th></tr>";
     for (var key in d) {
         if (key == "kills")
             kills = d[key];
@@ -123,7 +143,7 @@ const userAction = async () => {
     document.getElementById('stats').innerHTML += "<tr><td>K/D</td> <td>" + Math.round(kd * 10) / 10 + "</td></tr>";
 
 
-    //hideLoading();
+    hideLoading();
 }
 
 const loader = document.querySelector("#loading");
@@ -141,3 +161,4 @@ function displayLoading() {
 function hideLoading() {
     loader.classList.remove("display");
 }
+

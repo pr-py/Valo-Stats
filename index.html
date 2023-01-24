@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -16,17 +17,35 @@
     <div class="search">
         <div class="w3-row-padding">
             <div class="w3-third w3-padding-16">
-                <h5>
-                    Pick Player:
-                </h5>
-                <select id="player">
-                    <option value="1">AgentPP</option>
-                    <option value="2">Raz1a</option>
-                    <option value="3">Mandark</option>
-                    <option value="4">SniperLag</option>
-                    <option value="5">Darkknight1</option>
-                    <option value="6">Wolfstien20</option>
-                </select>
+                <div class="w3-row-padding">
+                    <div class="w3-half" hidden>
+                        <h5>
+                            Pick Player:
+                        </h5>
+                        <select id="player">
+                            <option value="1">AgentPP</option>
+                            <option value="2">Raz1a</option>
+                            <option value="3">Mandark</option>
+                            <option value="4">SniperLag</option>
+                            <option value="5">Darkknight1</option>
+                            <option value="6">Wolfstien20</option>
+                        </select>
+                    </div>
+                    <!-- <div class="w3-half w3-padding-16"> -->
+                    <h5>
+                        Search Player:
+                    </h5>
+                    <div class="w3-row-padding">
+                        <div class="w3-half">
+                            <input type="text" id="p_name" placeholder="Name">
+                        </div>
+                        <div class="w3-half">
+                            <input type="text" id="p_tag" placeholder="Tag#">
+                        </div>
+                    </div>
+
+                    <!-- </div> -->
+                </div>
             </div>
 
             <div class="w3-third w3-padding-16">
@@ -44,7 +63,7 @@
                 </select>
             </div>
             <div class="w3-third w3-padding-16">
-                <input type="button" value="Get Stats" onclick="userAction()">
+                <input type="button" id="get_stats" value="Get Stats" onclick="userAction()">
                 <div id="loading"></div>
             </div>
         </div>
