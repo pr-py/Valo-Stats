@@ -27,6 +27,11 @@ tr {
     height: 30%;
 }
 
+th{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 /* table#player_info {
     width: 50%;
     height: 30%;
