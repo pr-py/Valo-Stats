@@ -11,9 +11,9 @@
 </head>
 
 <body>
-    <h2>
+    <h3>
         Valorant Stats
-    </h2>
+    </h3>
     <div class="search">
         <div class="w3-row-padding">
             <div class="w3-third w3-padding-16">
@@ -36,6 +36,14 @@
                         Search Player:
                     </h5>
                     <div class="w3-row-padding">
+                        <input list="brow">
+                        <datalist id="brow">
+                            <option value="Internet Explorer">
+                            <option value="Firefox">
+                            <option value="Chrome">
+                            <option value="Opera">
+                            <option value="Safari">
+                        </datalist>
                         <div class="w3-half">
                             <input type="text" id="p_name" placeholder="Name">
                         </div>
@@ -53,12 +61,12 @@
                     Pick Match Type:
                 </h5>
                 <select id="match">
-                    <option>Last Match (Competitive)</option>
-                    <!-- <option>Last Match (Swiftplay)</option>
-                    <option>Last Match (Deathmatch)</option>
-                    <option>Last Match (Spike Rush)</option>
-                    <option>Last Match (Unrated)</option>
-                    <option>Last Match (Escalation)</option> -->
+                    <option>Competitive</option>
+                    <option>Swiftplay</option>
+                    <option>Deathmatch</option>
+                    <option>Spike Rush</option>
+                    <option>Unrated</option>
+                    <option>Escalation</option>
 
                 </select>
             </div>
@@ -73,7 +81,7 @@
 
     <div id="show" class="show">
         <div class="w3-row-padding">
-            
+
 
             <div class="w3-quarter w3-padding-16">
 

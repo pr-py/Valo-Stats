@@ -16,7 +16,7 @@ tr {
     border-collapse: collapse;
     padding: 12px;
     /*border-bottom: 1px solid rgb(215, 82, 82);*/
-    font-size: 17px;
+    font-size: 15px;
     color: white;
     text-shadow: 1px 1px 2px black;
     text-transform: capitalize;
@@ -32,12 +32,20 @@ th{
     padding-right: 20px;
 }
 
+table#scorecard {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    width:auto;
+    padding: 0px;
+}
+
 /* table#player_info {
     width: 50%;
     height: 30%;
 } */
 
-h2 {
+h3 {
     font-family: 'VALORANT';
     font-size: 1.5em;
     text-shadow: 1px 5px 10px black;
@@ -51,7 +59,7 @@ h2 {
 h5 {
     color: rgb(244, 249, 182);
     font-family: 'Calibri', Tahoma;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -106,7 +114,7 @@ input#get_stats {
     text-align: center;
     font-weight: bold;
     display: inline-block;
-    font-size: 20px;
+    font-size: 18px;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -123,7 +131,7 @@ input#get_stats:active {
 
 select {
     padding: 7px;
-    font-size: 17px;
+    font-size: 16px;
     font-family: sans-serif;
     font-weight: bold;
     background-color: #0563af;
@@ -184,3 +192,19 @@ div#player_card {
     font-family: "VALORANT";
     src: url('./assets/Valorant.ttf') format("truetype");
 }
+
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f100; 
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: rgba(9, 78, 118, 0.871);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(7, 63, 96, 0.871);
+  }

@@ -10,9 +10,8 @@ const userAction = async () => {
         "Wolfstien20": "2429"
     }
 
-    var mode_list = ["Competitive", "Swiftplay", "Deathmatch", "Spike Rush", "Unrated", "Escalation"];
+    var mode_list = ["competitive", "swiftplay", "deathmatch", "spikerush", "unrated", "escalation"];
 
-    //"https://api.henrikdev.xyz/valorant/v3/matches/ap/AgentPP/6969"
     displayLoading();
 
     var p = document.getElementById('player');
@@ -21,7 +20,7 @@ const userAction = async () => {
     var md = document.getElementById('match');
     md = md.selectedIndex;
 
-    var pname, ptag;
+    var pname, ptag, puuid;
 
     pname = document.getElementById('p_name').value;
     ptag = document.getElementById('p_tag').value;
@@ -45,10 +44,31 @@ const userAction = async () => {
     }
     else {
 
-        const response = await fetch('https://api.henrikdev.xyz/valorant/v3/matches/ap/' + pname + '/' + ptag);
+        //"https://api.henrikdev.xyz/valorant/v1/account/AgentPP/6969"
+
+        const rsp = await fetch('https://api.henrikdev.xyz/valorant/v1/account/' + pname + '/' + ptag);
+        const mj = await rsp.json();
+
+
+
+        puuid = mj['data']['puuid'];
+
+
+        //"https://api.henrikdev.xyz/valorant/v3/matches/ap/AgentPP/6969"
+
+        //"https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/3b5d2584-7570-53f4-8d88-1e6d28bb47a5?filter=competitive&size=1"
+
+        const response = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/' + puuid + '?filter=' + mode_list[md] + '&size=1');
         const myJson = await response.json(); //extract JSON from the http response
         // do something with myJson
 
+        if (myJson['data'].length === 0) {
+            alert('No data found!');
+            hideLoading();
+            return;
+        }
+
+        console.log('match data');
         //"https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/AgentPP/6969"
 
         const response1 = await fetch('https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/' + pname + '/' + ptag);
@@ -69,50 +89,54 @@ const userAction = async () => {
         var team_color, agent_played, agent_icon, rank, rank_img;
         var mode, rounds_played, rounds_won, rounds_lost, map_name;
 
-        //console.log(myJson);
+        console.log(myJson);
+
+        i = 0;
+        //for (i = 0; i < 5; i++) {
+
+        mode = myJson['data'][i]['metadata']['mode'];
+        if (mode === "Spike Rush")
+            mode = "spikerush";
 
 
-        for (i = 0; i < 5; i++) {
-
-            mode = myJson['data'][i]['metadata']['mode'];
-
-            for (j = 0; j < 10; j++) {
-                //console.log(escapeUnicode(myJson['data'][i]['players']['all_players'][j]['name']));
-                if (myJson['data'][i]['players']['all_players'][j]['name'].normalize('NFC') === pname.normalize('NFC') && myJson['data'][i]['players']['all_players'][j]['tag'].normalize('NFC') === ptag.normalize('NFC') && mode == mode_list[md]) {
-
-                    //document.getElementById('player_name').innerText = pname;
-
-                    team_color = myJson['data'][i]['players']['all_players'][j]['team'];
-                    agent_played = myJson['data'][i]['players']['all_players'][j]['character'];
-
-                    rank = myJson1['data'][i]['currenttierpatched'];
-                    rank_img = myJson1['data'][i]['images']['small'];
-                    map_name = myJson['data'][i]['metadata']['map'];
-
-                    rounds_played = myJson['data'][i]['metadata']['rounds_played'];
-                    rounds_won = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_won'];
-                    rounds_lost = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_lost'];
+        for (j = 0; j < 10; j++) {
+            //console.log(escapeUnicode(myJson['data'][i]['players']['all_players'][j]['name']));
 
 
+            if (myJson['data'][i]['players']['all_players'][j]['name'].normalize('NFC') === pname.normalize('NFC') && myJson['data'][i]['players']['all_players'][j]['tag'].normalize('NFC') === ptag.normalize('NFC') && mode.toLowerCase() == mode_list[md]) {
 
-                    document.getElementById('player_info').innerHTML = "<tr><td>Rank</td><td>" + "<img style='width:40%; height:40%' src=" + rank_img + "><br>" + rank + "</td></tr>";
-                    document.getElementById('player_info').innerHTML += "<tr><td>Level</td><td>" + myJson['data'][i]['players']['all_players'][j]['level'] + "</td></tr>";
+                //document.getElementById('player_name').innerText = pname;
 
-                    // document.getElementById('player_card').style.backgroundImage = "url(" + JSON.stringify(myJson['data'][i]['players']['all_players'][j]['assets']['card']['large']) + ")";
-                    agent_icon = myJson['data'][i]['players']['all_players'][j]['assets']['agent']['small'];
+                team_color = myJson['data'][i]['players']['all_players'][j]['team'];
+                agent_played = myJson['data'][i]['players']['all_players'][j]['character'];
 
-                    d = myJson['data'][i]['players']['all_players'][j]['stats'];
-                    dd = myJson['data'][i]['players']['all_players'];
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 1)
+
+                rank = myJson1['data'][i]['currenttierpatched'];
+                rank_img = myJson1['data'][i]['images']['small'];
+                map_name = myJson['data'][i]['metadata']['map'];
+
+                rounds_played = myJson['data'][i]['metadata']['rounds_played'];
+                rounds_won = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_won'];
+                rounds_lost = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_lost'];
+
+
+
+                document.getElementById('player_info').innerHTML = "<tr><td>Rank</td><td>" + "<img style='width:40%; height:40%' src=" + rank_img + "><br>" + rank + "</td></tr>";
+                document.getElementById('player_info').innerHTML += "<tr><td>Level</td><td>" + myJson['data'][i]['players']['all_players'][j]['level'] + "</td></tr>";
+
+                // document.getElementById('player_card').style.backgroundImage = "url(" + JSON.stringify(myJson['data'][i]['players']['all_players'][j]['assets']['card']['large']) + ")";
+                agent_icon = myJson['data'][i]['players']['all_players'][j]['assets']['agent']['small'];
+
+                d = myJson['data'][i]['players']['all_players'][j]['stats'];
+                dd = myJson['data'][i]['players']['all_players'];
+                flag = 1;
                 break;
+            }
         }
 
-        //Match info table
+        //}
 
+        //Match info table
 
 
         var result;
@@ -150,26 +174,27 @@ const userAction = async () => {
         document.getElementById('stats').innerHTML += "<tr><td>K/D</td> <td>" + Math.round(kd * 10) / 10 + "</td></tr>";
 
         //All players
-        
+
+
+
 
         document.getElementById('scorecard').innerHTML = "<tr><th>Player Name</th><th>Rank</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Bodyshots</th><th>Headshots</th><th>Legshots</th><th>Score</th><th>K/D</th></tr>";
 
         for (i in dd) {
 
-            console.log(dd[i]['stats']);
             kills = dd[i]['stats']['kills'];
 
             deaths = dd[i]['stats']['deaths'];
 
             var kd = kills / deaths;
 
-            document.getElementById('scorecard').innerHTML += "<tr><td>"+dd[i]['name']+"</td><td>"+dd[i]['currenttier_patched']+"</td><td>"+dd[i]['stats']['kills']+"</td><td>"+dd[i]['stats']['deaths']+"</td><td>"+dd[i]['stats']['assists']+"</td><td>"+dd[i]['stats']['bodyshots']+"</td><td>"+dd[i]['stats']['headshots']+"</td><td>"+dd[i]['stats']['legshots']+"</td><td>"+dd[i]['stats']['score']+"</td><td>" + Math.round(kd * 10) / 10 + "</td></tr>";
+            document.getElementById('scorecard').innerHTML += "<tr><td>" + dd[i]['name'] + "</td><td>" + dd[i]['currenttier_patched'] + "</td><td>" + dd[i]['stats']['kills'] + "</td><td>" + dd[i]['stats']['deaths'] + "</td><td>" + dd[i]['stats']['assists'] + "</td><td>" + dd[i]['stats']['bodyshots'] + "</td><td>" + dd[i]['stats']['headshots'] + "</td><td>" + dd[i]['stats']['legshots'] + "</td><td>" + dd[i]['stats']['score'] + "</td><td>" + Math.round(kd * 10) / 10 + "</td></tr>";
 
-            
-            
 
-           
-            
+
+
+
+
         }
 
         hideLoading();
