@@ -14,35 +14,21 @@ const userAction = async () => {
 
     displayLoading();
 
-    var p = document.getElementById('player');
-    p = p.options[p.selectedIndex].text;
-
     var md = document.getElementById('match');
     md = md.selectedIndex;
 
     var pname, ptag, puuid;
 
-    pname = document.getElementById('p_name').value;
-    ptag = document.getElementById('p_tag').value;
+    pname = document.getElementById('p_nametag').value;
 
-
-
-    if (pname === "" && ptag === "") {
-        pname = p;
-        ptag = flist[p];
-    }
-
-    if (pname === "" && ptag !== "") {
-        alert("Please enter Player Name!");
+    if (pname.split('#').length != 2) {
+        alert("Please enter Player Name and Tag!");
         hideLoading();
-
-    }
-    else if (pname !== "" && ptag === "") {
-        alert("Please enter Tag!");
-        hideLoading();
-
     }
     else {
+        ptag = pname.split('#')[1];
+        pname = pname.split('#')[0];
+
 
         //"https://api.henrikdev.xyz/valorant/v1/account/AgentPP/6969"
 
@@ -68,7 +54,7 @@ const userAction = async () => {
             return;
         }
 
-        console.log('match data');
+        //console.log('match data');
         //"https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/AgentPP/6969"
 
         const response1 = await fetch('https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/' + pname + '/' + ptag);
@@ -89,7 +75,7 @@ const userAction = async () => {
         var team_color, agent_played, agent_icon, rank, rank_img;
         var mode, rounds_played, rounds_won, rounds_lost, map_name;
 
-        console.log(myJson);
+        //console.log(myJson);
 
         i = 0;
         //for (i = 0; i < 5; i++) {
@@ -120,8 +106,8 @@ const userAction = async () => {
                 rounds_lost = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_lost'];
 
 
-
-                document.getElementById('player_info').innerHTML = "<tr><td>Rank</td><td>" + "<img style='width:40%; height:40%' src=" + rank_img + "><br>" + rank + "</td></tr>";
+                document.getElementById('player_info').innerHTML = "<tr><th colspan='2'>" + pname + "</th></tr>";
+                document.getElementById('player_info').innerHTML += "<tr><td>Rank</td><td>" + "<img style='width:40%; height:40%' src=" + rank_img + "><br>" + rank + "</td></tr>";
                 document.getElementById('player_info').innerHTML += "<tr><td>Level</td><td>" + myJson['data'][i]['players']['all_players'][j]['level'] + "</td></tr>";
 
                 // document.getElementById('player_card').style.backgroundImage = "url(" + JSON.stringify(myJson['data'][i]['players']['all_players'][j]['assets']['card']['large']) + ")";
@@ -162,7 +148,7 @@ const userAction = async () => {
             document.getElementById('match_info').innerHTML += "<tr><td>RR received</td><td>" + myJson1['data'][0]['mmr_change_to_last_game'] + "</td></tr>";
 
         var kills, deaths;
-        document.getElementById('stats').innerHTML = "<tr><th colspan='2'>Player Stats</th></tr>";
+        document.getElementById('stats').innerHTML = "<tr><th colspan='2'>" + pname + "'s Stats</th></tr>";
         for (var key in d) {
             if (key == "kills")
                 kills = d[key];
@@ -178,7 +164,8 @@ const userAction = async () => {
 
 
 
-        document.getElementById('scorecard').innerHTML = "<tr><th>Player Name</th><th>Rank</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Bodyshots</th><th>Headshots</th><th>Legshots</th><th>Score</th><th>K/D</th></tr>";
+        document.getElementById('player_team').innerHTML = "<caption>" + pname + "'s team</caption><tr><th>Player Name</th><th>Rank</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Bodyshots</th><th>Headshots</th><th>Legshots</th><th>Score</th><th>K/D</th></tr>";
+        document.getElementById('enemy_team').innerHTML = "<caption>Enemy team</caption><tr><th>Player Name</th><th>Rank</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Bodyshots</th><th>Headshots</th><th>Legshots</th><th>Score</th><th>K/D</th></tr>";
 
         for (i in dd) {
 
@@ -187,8 +174,10 @@ const userAction = async () => {
             deaths = dd[i]['stats']['deaths'];
 
             var kd = kills / deaths;
-
-            document.getElementById('scorecard').innerHTML += "<tr><td>" + dd[i]['name'] + "</td><td>" + dd[i]['currenttier_patched'] + "</td><td>" + dd[i]['stats']['kills'] + "</td><td>" + dd[i]['stats']['deaths'] + "</td><td>" + dd[i]['stats']['assists'] + "</td><td>" + dd[i]['stats']['bodyshots'] + "</td><td>" + dd[i]['stats']['headshots'] + "</td><td>" + dd[i]['stats']['legshots'] + "</td><td>" + dd[i]['stats']['score'] + "</td><td>" + Math.round(kd * 10) / 10 + "</td></tr>";
+            if (dd[i]['team'] === team_color)
+                document.getElementById('player_team').innerHTML += "<tr><td>" + dd[i]['name'] + "</td><td>" + dd[i]['currenttier_patched'] + "</td><td>" + dd[i]['stats']['kills'] + "</td><td>" + dd[i]['stats']['deaths'] + "</td><td>" + dd[i]['stats']['assists'] + "</td><td>" + dd[i]['stats']['bodyshots'] + "</td><td>" + dd[i]['stats']['headshots'] + "</td><td>" + dd[i]['stats']['legshots'] + "</td><td>" + dd[i]['stats']['score'] + "</td><td>" + Math.round(kd * 10) / 10 + "</td></tr>";
+            else
+                document.getElementById('enemy_team').innerHTML += "<tr><td>" + dd[i]['name'] + "</td><td>" + dd[i]['currenttier_patched'] + "</td><td>" + dd[i]['stats']['kills'] + "</td><td>" + dd[i]['stats']['deaths'] + "</td><td>" + dd[i]['stats']['assists'] + "</td><td>" + dd[i]['stats']['bodyshots'] + "</td><td>" + dd[i]['stats']['headshots'] + "</td><td>" + dd[i]['stats']['legshots'] + "</td><td>" + dd[i]['stats']['score'] + "</td><td>" + Math.round(kd * 10) / 10 + "</td></tr>";
 
 
 
@@ -197,6 +186,7 @@ const userAction = async () => {
 
         }
 
+        document.getElementById('p_nametag').value = "";
         hideLoading();
 
     }
