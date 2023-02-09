@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,23 +11,27 @@
 </head>
 
 <body>
-    <h2>
+    <h3>
         Valorant Stats
-    </h2>
+    </h3>
     <div class="search">
         <div class="w3-row-padding">
             <div class="w3-third w3-padding-16">
-                <h5>
-                    Pick Player:
-                </h5>
-                <select id="player">
-                    <option value="1">AgentPP</option>
-                    <option value="2">Raz1a</option>
-                    <option value="3">Mandark</option>
-                    <option value="4">SniperLag</option>
-                    <option value="5">Darkknight1</option>
-                    <option value="6">Wolfstien20</option>
-                </select>
+                <div class="w3-row-padding">
+                    <h5>
+                        Search Player:
+                    </h5>
+
+                    <input list="brow" type="text" id="p_nametag" placeholder="Name#Tag">
+                    <datalist id="brow">
+                        <option value="AgentPP#6969">
+                        <option value="Raz1a#7233">
+                        <option value="Mandark#1337">
+                        <option value="SniperLag#9424">
+                        <option value="Darkknight1#4637">
+                        <option value="Wolfstien20#2429">
+                    </datalist>
+                </div>
             </div>
 
             <div class="w3-third w3-padding-16">
@@ -34,18 +39,18 @@
                     Pick Match Type:
                 </h5>
                 <select id="match">
-                    <option>Last Match (Competitive)</option>
-                    <!-- <option>Last Match (Swiftplay)</option>
-                    <option>Last Match (Deathmatch)</option>
-                    <option>Last Match (Spike Rush)</option>
-                    <option>Last Match (Unrated)</option>
-                    <option>Last Match (Escalation)</option> -->
+                    <option>Competitive</option>
+                    <option>Swiftplay</option>
+                    <option>Deathmatch</option>
+                    <option>Spike Rush</option>
+                    <option>Unrated</option>
+                    <option>Escalation</option>
 
                 </select>
             </div>
             <div class="w3-third w3-padding-16">
-                <input type="button" value="Get Stats" onclick="userAction()">
-                <div id="loading"></div>
+                <input type="button" id="get_stats" value="Get Stats" onclick="userAction()">
+                <div id="loading"></div></input>
             </div>
         </div>
     </div>
@@ -54,13 +59,9 @@
 
     <div id="show" class="show">
         <div class="w3-row-padding">
-            <div class="w3-third w3-padding-16">
-                <h4 id="player_name"></h4>
-                <div id="player_card"></div>
 
-            </div>
 
-            <div class="w3-third w3-padding-16">
+            <div class="w3-quarter w3-padding-16">
 
                 <table id="player_info"></table>
                 <br>
@@ -70,10 +71,22 @@
                 <h6 id="agent_name"></h6> -->
             </div>
 
-            <div class="w3-third w3-padding-16">
+            <div class="w3-quarter w3-padding-16">
 
                 <table id="stats">
                 </table>
+            </div>
+
+            <div class="w3-half w3-padding-16">
+                <!-- <h4 id="player_name"></h4>
+                <div id="player_card"></div> -->
+
+                <table id="player_team">
+                </table>
+                <br>
+                <table id="enemy_team">
+                </table>
+
             </div>
         </div>
     </div>

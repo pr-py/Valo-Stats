@@ -16,16 +16,40 @@ tr {
     border-collapse: collapse;
     padding: 12px;
     /*border-bottom: 1px solid rgb(215, 82, 82);*/
-    font-size: 17px;
+    font-size: 15px;
     color: white;
     text-shadow: 1px 1px 2px black;
     text-transform: capitalize;
     box-shadow: 0px 1px 2px black;
     background-color: rgba(0, 139, 139, 0.243);
     border-radius: 5px;
+    width: 50%;
+    height: 30%;
+}
+caption {
+    text-align: left;
+    padding-left: 5px;
 }
 
-h2 {
+th{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+table#player_team,#enemy_team {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    width:auto;
+    padding: 0px;
+}
+
+/* table#player_info {
+    width: 50%;
+    height: 30%;
+} */
+
+h3 {
     font-family: 'VALORANT';
     font-size: 1.5em;
     text-shadow: 1px 5px 10px black;
@@ -39,7 +63,7 @@ h2 {
 h5 {
     color: rgb(244, 249, 182);
     font-family: 'Calibri', Tahoma;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -57,39 +81,53 @@ h6 {
     background-color: rgba(4, 37, 56, 0.871);
     border-radius: 10px;
     margin: 10px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .show {
     background-color: rgba(4, 37, 56, 0.871);
     border-radius: 10px;
     margin: 10px;
-    min-height:0px;
+    min-height: 600px;
     overflow: hidden;
     visibility: hidden;
-    padding: 20px;
+    padding: 10px;
 }
 
-input {
+input[type=text] {
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
+    padding: 10px 15px;
+    text-align: center;
+    /* font-weight: bold;*/
+    display: inline-block;
+    font-size: 15px;
+    cursor: text;
+    width: 60%;
+    height: 60%;
+}
+
+input#get_stats {
     background-color: rgba(222, 80, 80, 0.908);
-    border: 1px 1px;
+    border: 1px solid #fff;
     border-radius: 15px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.4);
     color: rgb(255, 255, 255);
     padding: 15px 32px;
     text-align: center;
     font-weight: bold;
     display: inline-block;
-    font-size: 20px;
+    font-size: 18px;
     margin: 4px 2px;
     cursor: pointer;
 }
 
-input:hover {
+input#get_stats:hover {
     background-color: rgba(253, 147, 147, 0.908)
 }
 
-input:active {
+input#get_stats:active {
     background-color: rgb(62, 164, 173);
     box-shadow: 0 5px rgba(0, 0, 0, 0);
     transform: translateY(4px);
@@ -97,7 +135,7 @@ input:active {
 
 select {
     padding: 7px;
-    font-size: 17px;
+    font-size: 16px;
     font-family: sans-serif;
     font-weight: bold;
     background-color: #0563af;
@@ -121,7 +159,8 @@ div#agent_icon {
 
 div#player_card {
     width: auto;
-    height: 50%;
+    height: 500px;
+    overflow: hidden;
     background-repeat: no-repeat, no-repeat;
     background-size: auto 80%;
     background-position: center;
@@ -157,3 +196,19 @@ div#player_card {
     font-family: "VALORANT";
     src: url('./assets/Valorant.ttf') format("truetype");
 }
+
+::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f100; 
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: rgba(9, 78, 118, 0.871);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(7, 63, 96, 0.871);
+  }
