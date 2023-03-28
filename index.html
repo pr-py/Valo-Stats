@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" type="image/x-icon" href="assets/vs.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="app.css">
+    <title>Valorant Stats</title>
+</head>
+
+<body>
+    <h3>
+        Valorant Stats
+    </h3>
+    <div class="search">
+        <div class="w3-row-padding">
+            <div class="w3-third w3-padding-16">
+                <div class="w3-row-padding">
+                    <h5>
+                        Search Player:
+                    </h5>
+
+                    <input list="brow" type="text" id="p_nametag" placeholder="Name#Tag">
+                    <datalist id="brow">
+                        <option value="AgentPP#6969">
+                        <option value="Raz1a#7233">
+                        <option value="Mandark#1337">
+                        <option value="SniperLag#9424">
+                        <option value="Darkknight1#4637">
+                        <option value="Wolfstien20#2429">
+                    </datalist>
+                </div>
+            </div>
+
+            <div class="w3-third w3-padding-16">
+                <h5>
+                    Pick Match Type:
+                </h5>
+                <select id="match">
+                    <option>Competitive</option>
+                    <option>Swiftplay</option>
+                    <option>Deathmatch</option>
+                    <option>Spike Rush</option>
+                    <option>Unrated</option>
+                    <option>Escalation</option>
+
+                </select>
+            </div>
+            <div class="w3-third w3-padding-16">
+                <input type="button" id="get_stats" value="Get Stats" onclick="userAction()">
+                <div id="loading"></div></input>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="show" class="show">
+        <div class="w3-row-padding">
+
+
+            <div class="w3-quarter w3-padding-16">
+
+                <table id="player_info"></table>
+                <br>
+                <table id="match_info"></table>
+
+                <!-- <div id="agent_icon"></div>
+                <h6 id="agent_name"></h6> -->
+            </div>
+
+            <div class="w3-quarter w3-padding-16">
+
+                <table id="stats">
+                </table>
+            </div>
+
+            <div class="w3-half w3-padding-16">
+                <!-- <h4 id="player_name"></h4>
+                <div id="player_card"></div> -->
+                <div class="accordion">
+                    <div style="float: left;margin-right: 30px;">
+                    <img id="char0" style='width:50px; height:50px' />
+                </div>
+                    <div style="float: left;margin-right: 30px;">
+                        <label id="kd0"></label>                          
+                    </div>                  
+                    <div style="margin-left: 400px;">
+                        <label id="info0"></label>                                                       
+                    </div>
+                </div>
+                <div class="panel">
+                    <table id="player_team0">
+                    </table>
+                    <br>
+                    <table id="enemy_team0">
+                    </table>
+                </div>
+                <div class="accordion">
+                    <div style="float: left;margin-right: 30px;">
+                    <img id="char1" style='width:50px; height:50px' />
+                </div>
+                    <div style="float: left;margin-right: 30px;">
+                        <label id="kd1"></label>                          
+                    </div>                  
+                    <div style="margin-left: 400px;">
+                        <label id="info1"></label>                                                       
+                    </div>
+                </div>
+                <div class="panel">
+                    <table id="player_team1">
+                    </table>
+                    <br>
+                    <table id="enemy_team1">
+                    </table>
+                </div>
+                <div class="accordion">
+                    <div style="float: left;margin-right: 30px;">
+                    <img id="char2" style='width:50px; height:50px' />
+                </div>
+                    <div style="float: left;margin-right: 30px;">
+                        <label id="kd2"></label>                          
+                    </div>                  
+                    <div style="margin-left: 400px;">
+                        <label id="info2"></label>                                                       
+                    </div>
+                </div>
+                <div class="panel">
+                    <table id="player_team2">
+                    </table>
+                    <br>
+                    <table id="enemy_team2">
+                    </table>
+                </div>
+                <div class="accordion">
+                    <div style="float: left;margin-right: 30px;">
+                    <img id="char3" style='width:50px; height:50px' />
+                </div>
+                    <div style="float: left;margin-right: 30px;">
+                        <label id="kd3"></label>                          
+                    </div>                  
+                    <div style="margin-left: 400px;">
+                        <label id="info3"></label>                                                       
+                    </div>
+                </div>
+                <div class="panel">
+                    <table id="player_team3">
+                    </table>
+                    <br>
+                    <table id="enemy_team3">
+                    </table>
+                </div>
+                <div class="accordion">
+                    <div style="float: left;margin-right: 30px;">
+                    <img id="char4" style='width:50px; height:50px' />
+                </div>
+                    <div style="float: left;margin-right: 30px;">
+                        <label id="kd4"></label>                          
+                    </div>                  
+                    <div style="margin-left: 400px;">
+                        <label id="info4"></label>                                                       
+                    </div>
+                </div>
+                <div class="panel">
+                    <table id="player_team4">
+                    </table>
+                    <br>
+                    <table id="enemy_team4">
+                    </table>
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
