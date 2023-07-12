@@ -1,26 +1,32 @@
-console.log("started..")
-
 const userAction = async () => {
 
     var flist = {
-        "AgentPP": 6969,
-        "Raz1a": 7233,
-        "Mandark": 1337,
-        "SniperLag": 9424,
-        "Darkknight1": 4637,
-        "Wolfstien20": 2429
+        "AgentPP": "6969",
+        "Raz1a": "7233",
+        "Mandark": "1337",
+        "SniperLag": "9424",
+        "Darkknight1": "4637",
+        "Wolfstien20": "2429"
     }
 
     var mode_list = ["Competitive", "Swiftplay", "Deathmatch", "Spike Rush", "Unrated", "Escalation"];
 
-    //"https://api.henrikdev.xyz/valorant/v3/matches/ap/AgentPP/6969"
     displayLoading();
-    var p = document.getElementById('player');
-    p = p.options[p.selectedIndex].text;
 
     var md = document.getElementById('match');
     md = md.selectedIndex;
 
+    var pname, ptag, puuid;
+
+    pname = document.getElementById('p_nametag').value;
+
+    if (pname.split('#').length != 2) {
+        alert("Please enter Player Name and Tag!");
+        hideLoading();
+    }
+    else {
+        ptag = pname.split('#')[1];
+        pname = pname.split('#')[0];
 
     const response = await fetch('https://api.henrikdev.xyz/valorant/v3/matches/ap/' + p + '/' + flist[p]);
     const myJson = await response.json(); //extract JSON from the http response
@@ -31,7 +37,6 @@ const userAction = async () => {
     const response1 = await fetch('https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/' + p + '/' + flist[p]);
     const myJson1 = await response1.json(); //extract JSON from the http response
 
-    hideLoading();
 
     var i, j, d, flag = 0;
 
@@ -122,7 +127,8 @@ const userAction = async () => {
     document.getElementById('stats').innerHTML += "<tr><td>K/D</td> <td>" + Math.round(kd * 10) / 10 + "</td></tr>";
 
 
-    //hideLoading();
+    hideLoading();
+}
 }
 
 const loader = document.querySelector("#loading");
