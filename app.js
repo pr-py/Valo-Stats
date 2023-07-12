@@ -10,7 +10,7 @@ const userAction = async () => {
         "Wolfstien20": "2429"
     }
 
-    var mode_list = ["competitive", "swiftplay", "deathmatch", "spikerush", "unrated", "escalation"];
+    var mode_list = ["Competitive", "Swiftplay", "Deathmatch", "Spike Rush", "Unrated", "Escalation"];
 
     displayLoading();
 
@@ -72,8 +72,8 @@ const userAction = async () => {
 
         //document.getElementById('player_info').innerHTML = "<tr><td>Agent Played</td><td>"+myJson['data'][0]['players']['all_players'][i]['character']+"</td></tr>";
 
-        var team_color, agent_played, agent_icon, rank, rank_img;
-        var mode, rounds_played, rounds_won, rounds_lost, map_name;
+    var team_color, agent_played, agent_icon, rank, rank_img, level;
+    var mode, rounds_played, rounds_won, rounds_lost, map_name;
 
         //console.log(myJson);
 
@@ -97,18 +97,18 @@ const userAction = async () => {
                 agent_played = myJson['data'][i]['players']['all_players'][j]['character'];
 
 
-                rank = myJson1['data'][i]['currenttierpatched'];
-                rank_img = myJson1['data'][i]['images']['small'];
                 map_name = myJson['data'][i]['metadata']['map'];
 
                 rounds_played = myJson['data'][i]['metadata']['rounds_played'];
                 rounds_won = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_won'];
                 rounds_lost = myJson['data'][i]['teams'][team_color.toLowerCase()]['rounds_lost'];
 
+                if (i == 0) {
+                    rank = myJson1['data'][i]['currenttierpatched'];
+                    rank_img = myJson1['data'][i]['images']['small'];
+                }
 
-                document.getElementById('player_info').innerHTML = "<tr><th colspan='2'>" + pname + "</th></tr>";
-                document.getElementById('player_info').innerHTML += "<tr><td>Rank</td><td>" + "<img style='width:40%; height:40%' src=" + rank_img + "><br>" + rank + "</td></tr>";
-                document.getElementById('player_info').innerHTML += "<tr><td>Level</td><td>" + myJson['data'][i]['players']['all_players'][j]['level'] + "</td></tr>";
+                level = myJson['data'][i]['players']['all_players'][j]['level']
 
                 // document.getElementById('player_card').style.backgroundImage = "url(" + JSON.stringify(myJson['data'][i]['players']['all_players'][j]['assets']['card']['large']) + ")";
                 agent_icon = myJson['data'][i]['players']['all_players'][j]['assets']['agent']['small'];
@@ -143,9 +143,11 @@ const userAction = async () => {
         document.getElementById('match_info').innerHTML += "<tr><td>Rounds Won/Lost</td><td>" + rounds_won + "/" + rounds_lost + "</td></tr>";
 
 
-        document.getElementById('player_info').innerHTML += "<tr><td>Current RR</td><td>" + myJson1['data'][0]['ranking_in_tier'] + "</td></tr>";
-        if (mode == "Competitive")
-            document.getElementById('match_info').innerHTML += "<tr><td>RR received</td><td>" + myJson1['data'][0]['mmr_change_to_last_game'] + "</td></tr>";
+    document.getElementById('player_info').innerHTML = "<tr><td>Rank</td><td>" + "<img style='width:60%; height:60%' src=" + rank_img + "><br>" + rank + "</td></tr>";
+    document.getElementById('player_info').innerHTML += "<tr><td>Level</td><td>" + level + "</td></tr>";
+    document.getElementById('player_info').innerHTML += "<tr><td>Current RR</td><td>" + myJson1['data'][0]['ranking_in_tier'] + "</td></tr>";
+    if (mode == "Competitive")
+        document.getElementById('match_info').innerHTML += "<tr><td>RR received</td><td>" + myJson1['data'][0]['mmr_change_to_last_game'] + "</td></tr>";
 
         var kills, deaths;
         document.getElementById('stats').innerHTML = "<tr><th colspan='2'>" + pname + "'s Stats</th></tr>";
