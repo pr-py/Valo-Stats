@@ -174,7 +174,7 @@ const userAction = async () => {
             document.getElementById('enemy_team' + y).innerHTML = "<caption>Enemy team</caption><tr><th>Player Name</th><th>Agent</th><th>Rank</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Bodyshots</th><th>Headshots</th><th>Score</th><th>K/D</th></tr>";
 
             for (i in dd) {
-                var assists,score;
+                var assists,score,kd;
                 if(dd[i]['name']==pname){
 
                 kills = dd[i]['stats']['kills'];
@@ -183,7 +183,7 @@ const userAction = async () => {
                 assists = dd[i]['stats']['assists'];
                 score = dd[i]['stats']['score'];
 
-                var kd = kills / deaths;
+                kd = kills / deaths;
 
                 document.getElementById('char' + y).src = agent_icon;
                 document.getElementById('kd' + y).innerHTML = "KDA " + kills + "/" + deaths + "/" + assists + "<br/>Score " + score;
