@@ -174,23 +174,26 @@ const userAction = async () => {
             document.getElementById('enemy_team' + y).innerHTML = "<caption>Enemy team</caption><tr><th>Player Name</th><th>Agent</th><th>Rank</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Bodyshots</th><th>Headshots</th><th>Score</th><th>K/D</th></tr>";
 
             for (i in dd) {
-                var assists,score,kd;
-                if(dd[i]['name']==pname){
+                var assists, score, kd, kills, deaths;
+                if (dd[i]['name'] == pname) {
+
+                    kills = dd[i]['stats']['kills'];
+
+                    deaths = dd[i]['stats']['deaths'];
+                    assists = dd[i]['stats']['assists'];
+                    score = dd[i]['stats']['score'];
+
+                    document.getElementById('char' + y).src = agent_icon;
+                    document.getElementById('kd' + y).innerHTML = "KDA " + kills + "/" + deaths + "/" + assists + "<br/>Score " + score;
+
+                    document.getElementById('info' + y).innerHTML = map_name + " - " + result + "<br/>" + rounds_won + "-" + rounds_lost;
+                }
 
                 kills = dd[i]['stats']['kills'];
 
                 deaths = dd[i]['stats']['deaths'];
-                assists = dd[i]['stats']['assists'];
-                score = dd[i]['stats']['score'];
 
                 kd = kills / deaths;
-
-                document.getElementById('char' + y).src = agent_icon;
-                document.getElementById('kd' + y).innerHTML = "KDA " + kills + "/" + deaths + "/" + assists + "<br/>Score " + score;
-
-                document.getElementById('info' + y).innerHTML = map_name + " - " + result + "<br/>" + rounds_won + "-" + rounds_lost;
-                }
-               
 
                 if (dd[i]['team'] === team_color)
                     document.getElementById('player_team' + y).innerHTML += "<tr><td>" + dd[i]['name'] + "</td><td>" + dd[i]['character'] + "</td><td>" + dd[i]['currenttier_patched'] + "</td><td>" + dd[i]['stats']['kills'] + "</td><td>" + dd[i]['stats']['deaths'] + "</td><td>" + dd[i]['stats']['assists'] + "</td><td>" + dd[i]['stats']['bodyshots'] + "</td><td>" + dd[i]['stats']['headshots'] + "</td><td>" + dd[i]['stats']['score'] + "</td><td>" + Math.round(kd * 10) / 10 + "</td></tr>";
@@ -200,7 +203,7 @@ const userAction = async () => {
             }
 
             //document.getElementById('p_nametag').value = "";
-            
+
 
         }
 
